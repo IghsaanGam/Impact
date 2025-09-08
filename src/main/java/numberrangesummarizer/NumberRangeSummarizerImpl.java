@@ -9,13 +9,29 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
 
     @Override
     public Collection<Integer> collect(String input) {
-        String[] inputArray = input.split(",");
+        String[] inputArray = input.split("[, ]");
 
-        Collection<Integer> collection = Arrays.stream(inputArray)
-                .map(Integer::parseInt)
-                .collect(Collectors.toCollection(ArrayList::new));
+        try{
+            for(String item : inputArray){
+                if(!item.matches("[0-9]")){
+                    throw new IllegalArgumentException("List must contain only numbers");
+                }
+            }
+            Collection<Integer> collection = Arrays.stream(inputArray)
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toCollection(ArrayList::new));
 
-        return collection;
+            return collection;
+
+        } catch (NumberFormatException e){
+            System.out.println("Number is too large to be an integer: " + e.getMessage());
+            return null;
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println("Invalid input: " + e.getMessage());
+            return null;
+        }
+
     }
 
     @Override
