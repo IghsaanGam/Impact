@@ -31,8 +31,9 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
             int nextNumber = inputArray.get(counter+1);
 
             boolean isSequential = currentNumber+1==nextNumber;
+            boolean isRangeEmpty = range.isEmpty();
 
-            if(isSequential && range.isEmpty()){
+            if(isSequential && isRangeEmpty){
                 range = currentNumber + "-" + nextNumber;
                 counter++;
                 if(counter==size-1){
@@ -40,7 +41,7 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
                     break;
                 }
             }
-            else if(isSequential && !range.isEmpty()){
+            else if(isSequential && !isRangeEmpty){
                 range = range.split("-")[0] + "-" + nextNumber;
                 counter++;
                 if(counter==size-1){
@@ -48,7 +49,7 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
                     break;
                 }
             }
-            else if(!isSequential && range.isEmpty()){
+            else if(!isSequential && isRangeEmpty){
                 counter++;
                 if(counter==size-1){
                     result.append(currentNumber).append(", ").append(nextNumber);
@@ -56,7 +57,7 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
                 }
                 result.append(currentNumber).append(", ");
             }
-            else if(!isSequential && !range.isEmpty()){
+            else if(!isSequential && !isRangeEmpty){
                 counter++;
                 if(counter==size-1){
                     result.append(range).append(", ").append(nextNumber);
