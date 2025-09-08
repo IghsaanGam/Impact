@@ -30,7 +30,7 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
             int currentNumber = inputArray.get(counter);
             int nextNumber = inputArray.get(counter+1);
 
-            boolean isSequential = isSequential(currentNumber, nextNumber);
+            boolean isSequential = currentNumber+1==nextNumber;
 
             if(isSequential && range.isEmpty()){
                 range = currentNumber + "-" + nextNumber;
@@ -67,9 +67,5 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
             }
         }
         return result.toString();
-    }
-
-    private boolean isSequential(int currentNumber, int nextNumber){
-        return currentNumber+1==nextNumber;
     }
 }
