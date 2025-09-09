@@ -13,19 +13,16 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
 
         for(String item : inputArray){
             if(!item.matches("-?\\d+")){
-                throw new IllegalArgumentException("List must contain only numbers");
+                throw new IllegalArgumentException("List must contain only numerical values");
             }
         }
 
         try{
-            Collection<Integer> collection = Arrays.stream(inputArray)
+            return Arrays.stream(inputArray)
                     .map(Integer::parseInt)
                     .collect(Collectors.toCollection(ArrayList::new));
-
-            return collection;
-
         } catch (NumberFormatException e){
-            throw new NumberFormatException("Number is too large to be an integer");
+            throw new IllegalArgumentException("A number in the string is too large to be an integer");
         }
     }
 
