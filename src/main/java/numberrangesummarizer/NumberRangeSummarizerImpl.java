@@ -5,8 +5,24 @@ import java.util.Collection;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * @author Mogamad Ighsaan Gamieldien
+ *
+ * Class implementation of the NumberRangeSummarizer interface.
+ *
+ * This class provides methods for taking a comma delimited list of numbers and
+ * grouping the numbers into a range when they are sequential.
+ */
+
 public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
 
+    /**
+     * Returns a collection of integers given a comma delimited list of integers as a string.
+     *
+     * @param input - comma delimited list of strings.
+     * @throws IllegalArgumentException if input is null or empty, or if a number in the input is too large to be an integer.
+     * @return collection - Collection of integers from input.
+     */
     @Override
     public Collection<Integer> collect(String input) {
         if(input==null || input.isEmpty()){
@@ -21,14 +37,23 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
         }
 
         try{
-            return Arrays.stream(inputArray)
+            Collection<Integer> collection = Arrays.stream(inputArray)
                     .map(Integer::parseInt)
                     .collect(Collectors.toCollection(ArrayList::new));
+
+            return collection;
         } catch (NumberFormatException e){
             throw new IllegalArgumentException("A number in the string is too large to be an integer");
         }
     }
 
+    /**
+     * Groups sequential numbers, from a collection of integers, in a range.
+     *
+     * @param input - Collection of integers.
+     * @throws IllegalArgumentException if input is null.
+     * @return result - string of the input summarized where sequential numbers are grouped in a range.
+     */
     @Override
     public String summarizeCollection(Collection<Integer> input) {
         if(input==null){
