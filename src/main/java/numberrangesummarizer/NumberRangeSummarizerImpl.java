@@ -25,9 +25,11 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
      */
     @Override
     public Collection<Integer> collect(String input) {
+
         if(input==null || input.isEmpty()){
             throw new IllegalArgumentException("Input string cannot be null nor empty");
         }
+
         String[] inputArray = input.split(",");
 
         for(String item : inputArray){
@@ -56,15 +58,18 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
      */
     @Override
     public String summarizeCollection(Collection<Integer> input) {
+
         if(input==null){
             throw new IllegalArgumentException("Input cannot be null");
         }
+
         int size = input.size();
         int counter=0;
         ArrayList<Integer> inputArray = new ArrayList<>(input);
         String range ="";
         StringBuilder result = new StringBuilder();
 
+        //Traverses and summarizes the collection while checking if the current number and next number are sequential
         while(counter<size){
             int currentNumber = inputArray.get(counter);
             int nextNumber = inputArray.get(counter+1);
