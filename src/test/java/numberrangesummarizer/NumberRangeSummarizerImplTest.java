@@ -1,6 +1,9 @@
 package numberrangesummarizer;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -18,9 +21,9 @@ public class NumberRangeSummarizerImplTest {
     @Test
     @DisplayName("Given a string of comma delimited integers, returns a collection of those integers")
     public void givenCommaDelimitedStringOfIntegers_whenCollect_thenReturnCollectionOfIntegers(){
-        String list = "1,3,6,7,8,12,13,14,15,21,22,23,24,31";
-        Collection<Integer> integerCollection = numberRangeSummarizer.collect(list);
-        Assertions.assertEquals(14, numberRangeSummarizer.collect(list).size());
+        String input = "1,3,6,7,8,12,13,14,15,21,22,23,24,31";
+        Collection<Integer> integerCollection = numberRangeSummarizer.collect(input);
+        Assertions.assertEquals(14, numberRangeSummarizer.collect(input).size());
         Assertions.assertEquals("[1, 3, 6, 7, 8, 12, 13, 14, 15, 21, 22, 23, 24, 31]", integerCollection.toString());
         Assertions.assertFalse(integerCollection.isEmpty());
     }
@@ -48,17 +51,17 @@ public class NumberRangeSummarizerImplTest {
     @Test
     @DisplayName("Throws an IllegalArgumentException if comma delimited list contains any number larger than an integer")
     public void givenCommaDelimitedListContainingNonIntegerNumber_whenCollect_thenThrowIllegalArgumentException(){
-        String list = "11111111111111111111111111,1";
+        String input = "11111111111111111111111111,1";
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            numberRangeSummarizer.collect(list);
+            numberRangeSummarizer.collect(input);
         });
     }
 
     @Test
     @DisplayName("Given a collection of integers, returns a summarized comma delimited list of numbers as a string with sequential numbers being grouped in ranges")
     public void givenCollectionOfIntegers_whenSummarizeCollection_thenReturnSummarizedCommaDelimitedListAsString(){
-        String list = "1,3,6,7,8,12,13,14,15,21,22,23,24,31";
-        Collection<Integer> integerCollection = numberRangeSummarizer.collect(list);
+        String input = "1,3,6,7,8,12,13,14,15,21,22,23,24,31";
+        Collection<Integer> integerCollection = numberRangeSummarizer.collect(input);
         Assertions.assertEquals("1, 3, 6-8, 12-15, 21-24, 31", numberRangeSummarizer.summarizeCollection(integerCollection));
     }
 
