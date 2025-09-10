@@ -1,6 +1,8 @@
 package numberrangesummarizer;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Collection;
 
@@ -15,7 +17,7 @@ public class NumberRangeSummarizerImplTest {
 
     @Test
     @DisplayName("Given a string of comma delimited integers, returns a collection of those integers")
-    public void stringOfOnlyCommaDelimitedNumbersShouldReturnCollectionOfThoseNumbersAsIntegers(){
+    public void givenCommaDelimitedStringOfIntegers_whenCollect_thenReturnCollectionOfIntegers(){
         String list = "1,3,6,7,8,12,13,14,15,21,22,23,24,31";
         Collection<Integer> integerCollection = numberRangeSummarizer.collect(list);
         Assertions.assertEquals(14, numberRangeSummarizer.collect(list).size());
@@ -25,7 +27,7 @@ public class NumberRangeSummarizerImplTest {
 
     @Test
     @DisplayName("Throws an IllegalArgumentException if input is null or empty")
-    public void nullOrEmptyStringThrowsIllegalArgumentException(){
+    public void givenNullOrEmptyString_whenCollect_thenThrowIllegalArgumentException(){
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             numberRangeSummarizer.collect(null);
         });
@@ -34,22 +36,18 @@ public class NumberRangeSummarizerImplTest {
         });
     }
 
-    @Test
-    @DisplayName("Throws an IllegalArgumentException if list contains any non numerical characters")
-    public void stringOfListContainingCommaDelimitedCharactersOrStringsShouldThrowIllegalArgumentException(){
-        String list1 = "1,3,6,7,8,12,13,14,15,21,22,23,24,31,a,b";
+    @ParameterizedTest
+    @ValueSource(strings = {"1,3,6,7,a,b", "a,ab"})
+    @DisplayName("Throws an IllegalArgumentException if comma delimited list contains any non numerical characters")
+    public void givenCommaDelimitedListContainingNonNumericalValues_whenCollect_thenThrowIllegalArgumentException(String input){
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            numberRangeSummarizer.collect(list1);
-        });
-        String list2 = "1,3,6,7,8,12,13,14,15,21,22,23,24,31,ab";
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            numberRangeSummarizer.collect(list2);
+            numberRangeSummarizer.collect(input);
         });
     }
 
     @Test
-    @DisplayName("Throws an IllegalArgumentException if list contains any number bigger than an integer")
-    public void numberFromStringIsTooLarge(){
+    @DisplayName("Throws an IllegalArgumentException if comma delimited list contains any number larger than an integer")
+    public void givenCommaDelimitedListContainingNonIntegerNumber_whenCollect_thenThrowIllegalArgumentException(){
         String list = "11111111111111111111111111,1";
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             numberRangeSummarizer.collect(list);
@@ -58,15 +56,15 @@ public class NumberRangeSummarizerImplTest {
 
     @Test
     @DisplayName("Given a collection of integers, returns a summarized comma delimited list of numbers as a string with sequential numbers being grouped in ranges")
-    public void givenACollectionOfIntegersCreateACommaDelimitedListOfNumbersAsAStringWithConsecutiveNumbersBeingGroupedInARange(){
+    public void givenCollectionOfIntegers_whenSummarizeCollection_thenReturnSummarizedCommaDelimitedListAsString(){
         String list = "1,3,6,7,8,12,13,14,15,21,22,23,24,31";
         Collection<Integer> integerCollection = numberRangeSummarizer.collect(list);
         Assertions.assertEquals("1, 3, 6-8, 12-15, 21-24, 31", numberRangeSummarizer.summarizeCollection(integerCollection));
     }
 
     @Test
-    @DisplayName("Throws an IllegalArgumentException if collection is null")
-    public void nullCollectionThrowsIllegalArgumentException(){
+    @DisplayName("Throws an IllegalArgumentException if input is null")
+    public void givenNullCollection_whenSummarizeCollection_thenThrowIllegalArgumentException(){
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             numberRangeSummarizer.summarizeCollection(null);
         });
