@@ -24,6 +24,17 @@ public class NumberRangeSummarizerImplTest {
     }
 
     @Test
+    @DisplayName("Throws an IllegalArgumentException if input is null or empty")
+    public void nullOrEmptyStringThrowsIllegalArgumentException(){
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            numberRangeSummarizer.collect(null);
+        });
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            numberRangeSummarizer.collect("");
+        });
+    }
+
+    @Test
     @DisplayName("Throws an IllegalArgumentException if list contains any non numerical characters")
     public void stringOfListContainingCommaDelimitedCharactersOrStringsShouldThrowIllegalArgumentException(){
         String list1 = "1,3,6,7,8,12,13,14,15,21,22,23,24,31,a,b";
@@ -37,7 +48,7 @@ public class NumberRangeSummarizerImplTest {
     }
 
     @Test
-    @DisplayName("Throws a IllegalArgumentException if list contains any number bigger than an integer")
+    @DisplayName("Throws an IllegalArgumentException if list contains any number bigger than an integer")
     public void numberFromStringIsTooLarge(){
         String list = "11111111111111111111111111,1";
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -51,6 +62,14 @@ public class NumberRangeSummarizerImplTest {
         String list = "1,3,6,7,8,12,13,14,15,21,22,23,24,31";
         Collection<Integer> integerCollection = numberRangeSummarizer.collect(list);
         Assertions.assertEquals("1, 3, 6-8, 12-15, 21-24, 31", numberRangeSummarizer.summarizeCollection(integerCollection));
+    }
+
+    @Test
+    @DisplayName("Throws an IllegalArgumentException if collection is null")
+    public void nullCollectionThrowsIllegalArgumentException(){
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            numberRangeSummarizer.summarizeCollection(null);
+        });
     }
 
 }
