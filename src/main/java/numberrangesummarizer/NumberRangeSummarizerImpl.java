@@ -50,7 +50,7 @@ public class NumberRangeSummarizerImpl implements NumberRangeSummarizer{
     }
 
     /**
-     * Groups sequential numbers, from a collection of integers, in a range.
+     * Summarizes a collection of integers by grouping sequential numbers, from the collection, in a range.
      *
      * @param input - Collection of integers.
      * @throws IllegalArgumentException if input is null.
