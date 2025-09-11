@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.Collection;
 
 /**
- * @author Mogamad Ighsaan Gamieldieb
+ * @author Mogamad Ighsaan Gamieldien
  *
  * Unit tests for the methods implemented in the NumberRangeSummarizerImpl class.
  */
