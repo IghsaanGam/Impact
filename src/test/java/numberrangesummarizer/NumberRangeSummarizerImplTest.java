@@ -9,6 +9,12 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Collection;
 
+/**
+ * @author Mogamad Ighsaan Gamieldieb
+ *
+ * Unit tests for the methods implemented in the NumberRangeSummarizerImpl class.
+ */
+
 public class NumberRangeSummarizerImplTest {
 
     NumberRangeSummarizer numberRangeSummarizer;
